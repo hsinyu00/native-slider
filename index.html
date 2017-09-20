@@ -3,6 +3,8 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
 <title>slider</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.10/css/perfect-scrollbar.css" rel="stylesheet" media="screen">
+
 <style>
 html, body {
     margin: 0;
@@ -20,11 +22,10 @@ html, body {
 }
 .slider-container {
     position: relative;
+    margin: 30px 0;
 }
 .slider {
-    margin: 30px 0;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 .clearfix::after {
     display: block;
@@ -224,6 +225,14 @@ window.onload = function() {
     simpleCarousel("slider2");
 };
 
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.10/js/perfect-scrollbar.js" type="text/javascript"></script> <!-- 裡面根本沒有 jquery 啊 -->
+<script type="text/javascript">
+    var el1 = document.querySelector('#slider1');
+    var el2 = document.querySelector('#slider2');
+    Ps.initialize(el1);
+    Ps.initialize(el2);
 </script>
 </body>
 </html>
