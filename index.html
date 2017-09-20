@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+<title>slider</title>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: block;
+    position: relative;
+    max-width: 100%;
+    width: 1200px;
+    margin: 0 auto;
+}
+.container img {
+    width: 100%;
+}
+.slider-container {
+    position: relative;
+}
+.slider {
+    margin: 30px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.clearfix::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+.slider-inner {
+    display: inline-block;
+}
+.card {
+    width: 120px;
+    margin: 0 10px;
+    float: left;
+    border: 1px solid #eee;
+}
+.prev,
+.next {
+    position: absolute;
+    display: inline-block;
+    top: -30px;
+    padding: 5px;
+    background-color: #eee;
+    z-index: 5;
+    cursor: pointer;
+}
+.prev {
+    left: 0;
+}
+.next {
+    left: 30px;
+}
+@media (min-width: 600px) {
+    .card {
+        width: 150px;
+    }
+}
+@media (min-width: 1024px) {
+    .card {
+        width: 200px;
+    }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Slider 1</h2>
+    <div class="slider-container">
+        <div id="slider1" class="slider">
+            <div class="prev">&lt;</div>
+            <div class="next">&gt;</div>
+            <div class="slider-inner clearfix">
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title1</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title2</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title3</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title4</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title5</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title6</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title7</h3>
+                    <h4>Subtitle</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Slider 2</h2>
+    <div class="slider-container">
+        <div id="slider2" class="slider">
+            <div class="prev">&lt;</div>
+            <div class="next">&gt;</div>
+            <div class="slider-inner clearfix">
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title8</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title9</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title10</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title11</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title12</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title13</h3>
+                    <h4>Subtitle</h4>
+                </div>
+                <div class="card">
+                    <img src="http://via.placeholder.com/150x120">
+                    <h3>Title14</h3>
+                    <h4>Subtitle</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function simpleCarousel(slider){ // pass slider ID
+    var slider,
+        sliderInner,
+        cardArr,
+        cardStyle,
+        cardWidth,
+        navPrev,
+        navNex;
+
+    slider = document.getElementById(slider);
+    // slider = document.getElementById("slider1");
+    sliderInner = slider.querySelector(".slider-inner");
+    cardArr = Array.prototype.slice.call(sliderInner.querySelectorAll(".card"));
+    navPrev = slider.querySelector(".prev");
+    navNext = slider.querySelector(".next");
+
+    function getCardWidth(){
+        if(cardArr) {
+            cardStyle = cardArr[0].currentStyle || window.getComputedStyle(cardArr[0]);
+            cardWidth = cardArr[0].offsetWidth + parseInt(cardStyle.marginLeft, 10) + parseInt(cardStyle.marginRight, 10);
+            sliderInner.style.width = (cardWidth * cardArr.length) + "px";
+            console.log("card-w:" + cardWidth);
+        }
+    }
+
+    function animate(direction) {
+        var origin,
+            fps = 12,
+            shift = cardWidth / fps,
+            i = 0;
+        var steps = setInterval(function() { // 把一張卡片的距離切成12格
+            origin = slider.scrollLeft;
+            direction == "left" ? (slider.scrollLeft = origin - shift) : (slider.scrollLeft = origin + shift);
+            if (++i >= fps) {
+                window.clearInterval(steps);
+            }
+        }, 20);
+    }
+
+    if(cardArr) {
+        getCardWidth();
+
+        navPrev.addEventListener('click', function(e) {
+            console.log("left");
+            console.log(slider.scrollLeft);
+            animate("left");
+        });
+
+        navNext.addEventListener('click', function(e) {
+            console.log("right");
+            console.log(slider.scrollLeft);
+            animate("right");
+        });
+    }
+
+    window.addEventListener('resize', getCardWidth);
+};
+
+window.onload = function() {
+    simpleCarousel("slider1");
+    simpleCarousel("slider2");
+};
+
+</script>
+</body>
+</html>
